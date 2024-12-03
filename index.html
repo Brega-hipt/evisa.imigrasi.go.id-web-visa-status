@@ -7,7 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background: url('images/background.jpg') no-repeat center center fixed;
+            background-size: cover;
             margin: 0;
             padding: 0;
             display: flex;
@@ -16,7 +17,8 @@
             height: 100vh;
         }
         .container {
-            background: #fff;
+            background: url('images/container-background.jpg') no-repeat center center;
+            background-size: cover;
             padding: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             border-radius: 8px;
@@ -25,7 +27,7 @@
             width: 100%;
         }
         .container h1 {
-            color: #333;
+            color: #000000;
             margin-bottom: 20px;
         }
         .container input {
@@ -60,6 +62,10 @@
             background: #f8d7da;
             color: #721c24;
         }
+        .result img {
+            max-width: 100px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -68,28 +74,40 @@
     <h1>Check Visa Status</h1>
     <input type="text" id="visaNumber" placeholder="Enter Visa Number" />
     <button onclick="checkStatus()">Check Status</button>
-    <div id="result" class="result"></div>
+    <div id="result" class="result">
+        <p id="resultText"></p>
+        <img id="resultImage" src="" alt="" style="display:none;">
+    </div>
 </div>
 
 <script>
     function checkStatus() {
         const visaNumber = document.getElementById('visaNumber').value.trim();
         const resultDiv = document.getElementById('result');
+        const resultText = document.getElementById('resultText');
+        const resultImage = document.getElementById('resultImage');
 
         if (visaNumber === '') {
-            resultDiv.textContent = 'Please enter a visa number.';
+            resultText.textContent = 'Please enter a visa number.';
             resultDiv.className = 'result error';
             resultDiv.style.display = 'block';
+            resultImage.style.display = 'none';
             return;
         }
 
         // Simulate a visa status check
         if (visaNumber === '125C1610508') {
-            resultDiv.textContent = 'ABDULFETTAH SAAD SAEED SAEED - Passport No. AE253865';
+            resultText.textContent = 'Alsahl - Passport No. 000000';
             resultDiv.className = 'result success';
+            resultImage.src = 'images/success-image.jpg';
+            resultImage.alt = 'Visa Approved';
+            resultImage.style.display = 'block';
         } else {
-            resultDiv.textContent = 'Visa not found or rejected.';
+            resultText.textContent = 'Visa not found or rejected.';
             resultDiv.className = 'result error';
+            resultImage.src = 'images/error-image.jpg';
+            resultImage.alt = 'Visa Rejected';
+            resultImage.style.display = 'block';
         }
 
         resultDiv.style.display = 'block';
